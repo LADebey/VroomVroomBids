@@ -27,7 +27,6 @@
         <input type="number" name="min_price" step="0.01" min="1" placeholder="8000"/>
         <label for="date_end">Date de fin de l'enchère:</label>
         <input type="date" name="date_end" min="<?php echo $currentDate; ?>"/>
-        <input type="hidden" name="current_date" value="<?php echo $currentDate; ?>"/>
         <input type="submit"/>
     </form>
 
