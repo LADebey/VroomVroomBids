@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  background-color: #1e2134;
+  width: 100vw;
+}
+
+.cguContainer {
+  margin-left: 5%;
+  width: 80%;
+}

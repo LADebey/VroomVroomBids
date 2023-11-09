@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CGU</title>
+    <link rel="stylesheet" type="text/css" href="CGU.css"/>
 </head>
 <body>
+    <div class="wrapper">
+        <div class="cguContainer">
     <h1>Conditions Générales d'Utilisation</h1>
 
     <h2>Dernière mise à jour : [09/11/2023]</h2>
@@ -55,7 +58,9 @@
     <h2>Nous Contacter :</h2>
 
     <p>Si vous avez des questions concernant ces Conditions <a href="mailto:contact@vroomvroombids.com">Contactez-nous ici !</a>
-    
+
+</div>
+</div>
 
 
     

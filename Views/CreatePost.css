@@ -7,12 +7,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  background: rgb(0, 2, 15);
-  background: linear-gradient(
-    306deg,
-    rgba(0, 2, 15, 1) 0%,
-    rgba(30, 33, 52, 1) 35%
-  );
+  background-color: #1e2134;
   width: 100vw;
   height: 100vh;
 }
