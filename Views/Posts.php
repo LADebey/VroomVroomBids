@@ -12,9 +12,7 @@
 
     $sql = 'SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post';
 
-    $slt = "SELECT u. id, firstname, lastname, p. user_id FROM users LEFT JOIN post p ON u.id = p.user_id WHERE p.id = 1";
-
-    $voitures = $conn->query($slt);
+    $voitures = $conn->query("SELECT id, firstname, lastname FROM users");
     $posts = $conn->query($sql);
    
 
@@ -25,7 +23,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="reel.css">
+    <link rel="stylesheet" href="voila.css">
     <title>Document</title>
 </head>
 <body>
@@ -44,8 +42,22 @@ afficher_menu($nom, $array);
     
     <div class="trois">
         <div class="quatre">
-
+            <div>
             <p>Détails :</p>
+
+            <?php if (is_array($voitures)) {
+                foreach ($voitures as $voiture) {
+                    echo "Nom : ". $voiture['firstname'];
+                }
+            } else {
+                foreach ($voitures as $voiture) {
+                    echo "Nom : ". $voiture['firstname']. "<br>";
+                    echo "Prénom : ". $voiture['lastname'];
+                }
+                    }
+            ?>
+            </div>
+
             
             <?php foreach($posts as $post):?>
                 <?php echo "Prix de départ : " . $post['min_price']."€ <br>";?>

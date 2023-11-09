@@ -21,14 +21,14 @@ img{
 .trois{
     display: flex;
     flex-direction: column;
+    gap: 30px;
 }
 
 .quatre{
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
-form input .Btn{
-    border: none;
-}
+
 
