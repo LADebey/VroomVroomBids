@@ -1,3 +1,5 @@
+<?php define('ROOT_PATH', './'); ?>
+<?php include("Menu.php"); ?>
 <?php
 $bdd = new PDO("mysql:host=127.0.0.1;dbname=bocal_vroomvroombids;port=8889", "root", "root"); //Apple
 // $bdd = new PDO ("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids","root",""); //Windows
@@ -17,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["users_id"] = $utilisateur["id"];
         //echo "connexion reussi";
         // Redirige user vers son espace personnel
-        header("Location: espace_personnel.php");
+        header("Location: /VroomVroomBids/Views/Profile/EspacePerso.php");
        exit; // Termine le script après la redirection
     } else {
         echo "Identifiants incorrects. Veuillez réessayer.";
@@ -29,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="Login.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <div class="login">
@@ -36,27 +39,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <span class="text">LOGIN</span>
         <span class="loader"></span>
     </header>
-    <form class="form">  
-        <input class="input" type="email" placeholder="Adresse e-mail">
-        <input class="input" type="password" placeholder="Mot de passe">
+    <form class="form" method="post" action="Login.php">  
+        <input class="input" type="email" name="email" placeholder="Email">
+        <input class="input" type="password" name="password" placeholder="Mot de passe">
         <button class="btn" type="submit"></button>
     </form>
 </div>
     <a href="/VroomVroomBids/Views/Register/Register.php" class="resetbtn">Inscription</a>
-    <script>
-        $(document).ready(function() {
-            $('.input').on('focus', function() {
-                $('.login').addClass('clicked');
-            });
-            $('.login').on('submit', function(e) {
-                e.preventDefault();
-                $('.login').removeClass('clicked').addClass('loading');
-            });
-            $('.resetbtn').on('click', function(e){
-                e.preventDefault();
-                $('.login').removeClass('loading');
-            });
+    <!-- <script>
+    $(document).ready(function() {
+        $('.input').on('focus', function() {
+            $('.login').addClass('clicked');
         });
-        </script>
+        $('.login').on('submit', function() {
+            $('.login').removeClass('clicked').addClass('loading');
+        });
+        $('.resetbtn').on('click', function(e){
+            e.preventDefault();
+            $('.login').removeClass('loading');
+        });
+    });
+    </script> -->
 </body>
 </html>

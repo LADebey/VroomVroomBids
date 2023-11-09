@@ -1,20 +1,20 @@
+<?php define('ROOT_PATH', './'); ?>
+<?php include("Menu.php"); ?>
 <?php
-// $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root"); // Apple
-// $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
 try {
-    $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
+    $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root"); //Apple
     // $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
 
 } catch (PDOException $e) {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nom = $_POST["name"];
     $prenom = $_POST["firstname"];
     $email = $_POST["email"];
     $mot_de_passe = password_hash($_POST["password"], PASSWORD_BCRYPT);
+
     // Vérification si une seule adresse mail
     $stmt = $bdd->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->bindValue(":email", $email, PDO::PARAM_STR);
@@ -46,9 +46,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text css" href="Register.css">
+    <link rel="stylesheet" type="text/css" href="Register.css">
 </head>
 <body>
+<div class="RegisterContainer">
+    <form class="RegisterForm" action="Register.php" method="post">
     <h1>Inscription</h1>
     <?php
     if (!empty($error)) {
@@ -58,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo "<div style='color: green;'>$success</div>";
     }
     ?>
-    <form action="Register.php" method="post">
         <label for="name">Nom :</label>
         <input type="text" name="name" required><br>
         <label for="firstname">Prénom :</label>
@@ -69,5 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <input type="password" name="password" required><br>
         <input type="submit" value="S'inscrire">
     </form>
+    </div>
 </body>
 </html>

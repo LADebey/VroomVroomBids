@@ -9,7 +9,7 @@
 }
 
 body {
-    background: hsla(255, 255%, 255%, 1);
+    background-color: #1e2134;
     font: 100%/1 "Lobster", cursive;
 }
 
@@ -88,9 +88,9 @@ body {
     top: -0.5rem;
     width: 1rem;
     height: 1rem;
-    background: hsla(1, 75%, 55%, 1);
+    background: #35f3ff;
     border-radius: 50%;
-    border-right: 1px solid hsla(1, 75%, 55%, 1);
+    border-right: 1px solid #35f3ff;
 }
 .header > .loader:before {
     content: "";
@@ -99,9 +99,10 @@ body {
     top: -0.5rem;
     width: 0;
     height: 0;
-    border-right: 1rem solid hsla(1, 75%, 55%, 1);
+    border-right: 1rem solid #ffd018;
     border-top: 0.5rem solid transparent;
     border-bottom: 0.5rem solid transparent;
+    background: #ffd018;
 }
 
 @keyframes loading {

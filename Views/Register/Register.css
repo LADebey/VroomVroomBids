@@ -1,35 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    background-color: #35f3ff;
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif; /* Ajout d'une police de caractères par défaut */
 }
 
 h1 {
+    text-align: center;
     color: #ffd018;
 }
 
-label {
-    color: #868f9e;
+.RegisterContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #1e2134;
+    width: 100vw;
+    height: 100vh;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
+.RegisterForm {
+    width: 30%;
     padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #868f9e;
-    border-radius: 5px;
+    border: 2px solid #212121;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+    background-color: #424242;
+    color: white;
 }
 
-input[type="submit"] {
-    background-color: #914f03;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.RegisterForm:hover {
+    border: 2px solid #35f3ff;
 }
 
-input[type="submit"]:hover {
+.RegisterForm h2 {
+    font-size: 24px;
+    color: #ffd018;
+    text-align: center;
+    margin: 5%;
+}
+
+.RegisterForm label {
+    color: white;
+}
+
+.RegisterForm input,
+.RegisterForm textarea {
+    width: 90%;
+    padding: 8px;
+    margin: 6px 0;
+    border: 1px solid #212121;
+    background-color: #424242;
+    color: white;
+}
+
+.RegisterForm input:focus,
+.RegisterForm textarea:focus {
+    border: 2px solid #ffd018;
+    outline: none;
+}
+
+.RegisterForm input[type="submit"] {
     background-color: #ffd018;
+    color: #212121;
+    border: none;
+    margin-top: 5%;
+    padding: 10px 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.RegisterForm input[type="submit"]:hover {
+    background-color: #35f3ff;
+    color: white;
 }
