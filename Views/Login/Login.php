@@ -15,10 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($utilisateur && password_verify($mot_de_passe, $utilisateur["password"])) {
         session_start();
         $_SESSION["users_id"] = $utilisateur["id"];
-
+        //echo "connexion reussi";
         // Redirige user vers son espace personnel
         header("Location: espace_personnel.php");
-        exit; // Termine le script après la redirection
+       exit; // Termine le script après la redirection
     } else {
         echo "Identifiants incorrects. Veuillez réessayer.";
     }
@@ -31,12 +31,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" type="text/css" href="Login.css">
 </head>
 <body>
-    <form class="login" method="post">
-        <input type="text" class="input" name="email" placeholder="Adresse e-mail">
-        <input type="password" class="input" name="password" placeholder="Mot de passe">
-        <button type="submit" class="submitbtn">Se connecter</button>
+<div class="login">
+    <header class="header">
+        <span class="text">LOGIN</span>
+        <span class="loader"></span>
+    </header>
+    <form class="form">  
+        <input class="input" type="email" placeholder="Adresse e-mail">
+        <input class="input" type="password" placeholder="Mot de passe">
+        <button class="btn" type="submit"></button>
     </form>
-    <a href="/VroomVroomBids/Views/Register/Register.php" class="registerbtn">Inscription</a>
+</div>
+    <a href="/VroomVroomBids/Views/Register/Register.php" class="resetbtn">Inscription</a>
     <script>
         $(document).ready(function() {
             $('.input').on('focus', function() {
