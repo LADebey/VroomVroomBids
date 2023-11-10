@@ -46,7 +46,7 @@ if (isset($_SESSION["users_id"])) {
                     <li class="cardencheres">
                         <!-- détails enchère remportée -->
                         Marque : <?php echo $enchere["brand"]; ?><br>
-                        Model : <?php echo $enchere["model"]; ?><br>
+                        Modèle : <?php echo $enchere["model"]; ?><br>
                         Puissance : <?php echo $enchere["power"]; ?><br>
                         Date d'achat : <?php echo $enchere["years"]; ?><br>
                         Montant : <?php echo $enchere["min_price"]; ?> €<br>
