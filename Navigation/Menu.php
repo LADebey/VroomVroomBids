@@ -13,9 +13,7 @@
         foreach($array as $k => $v){
             echo " <a href=\"$v\">$k</a> |";
         }
-
-        echo "<h1>VroumVroumBids<form action=''> <input type='text' name='recherche' placeholder='Rechercher'><input type='submit' name='search' value='search'></form> </h1>
-         ";
+        echo "<h1>VroumVroumBids<form action=''> <input type='text' name='recherche' placeholder='Rechercher'><input type='submit' name='search' value='search'></form> </h1>";
     }
 
 ?>
