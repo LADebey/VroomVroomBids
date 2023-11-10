@@ -48,7 +48,7 @@ if (isset($_SESSION["users_id"])) {
                         Marque : <?php echo $enchere["brand"]; ?><br>
                         Model : <?php echo $enchere["model"]; ?><br>
                         Puissance : <?php echo $enchere["power"]; ?><br>
-                        Année : <?php echo $enchere["years"]; ?><br>
+                        Date d'achat : <?php echo $enchere["years"]; ?><br>
                         Montant (€): <?php echo $enchere["min_price"]; ?><br>
                         Description : <?php echo $enchere["descriptions"]; ?><br>
                     </li>
