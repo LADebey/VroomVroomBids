@@ -92,10 +92,13 @@ h2 {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 5px;
 }
-
+.cardannonce li {
+    text-align: center;
+}
 .cardannonce a {
     text-decoration: none;
     color: white;
+    align-items: center;
 }
 
 @media screen and (max-width: 768px) {
