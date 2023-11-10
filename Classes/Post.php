@@ -25,7 +25,7 @@ class Post
 
 
         $dbh = new PDO("mysql:dbname=bocal_vroomvroombids;host=127.0.0.1", "root", "");
-        $post = $dbh->prepare("INSERT INTO posts (`model`, `brand`, `power`, `years`, `descriptions`, `min_price`, `date_end` ) VALUES (? , ?, ?, ?, ?, ?, ?)");
+        $post = $dbh->prepare("INSERT INTO posts (model, brand, power, years, descriptions, min_price, date_end ) VALUES (? , ?, ?, ?, ?, ?, ?)");
         $post->execute([$this->model, $this->brand, $this->power, $this->year, $this->description, $this->minPrice, $this->dateEnd]);
         echo "Votre post a été sauvegardé dans la base de données";
     }

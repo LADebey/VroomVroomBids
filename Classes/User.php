@@ -8,7 +8,7 @@ class User
     protected string $password;
     public int $salesNumber;
 
-    public function __construct($firstname, $lastname, $email, $password, $salesNumber)
+    public function construct($firstname, $lastname, $email, $password, $salesNumber)
     {
         $this->firstname = $firstname;
         $this->lastname = $lastname;
@@ -17,7 +17,7 @@ class User
         $this->salesNumber = $salesNumber;
     }
 
-    public function __get($name)
+    public function get($name)
     {
         return $this->$name;
     }
