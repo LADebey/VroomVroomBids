@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
     $mot_de_passe = $_POST["password"];
 
-    // Vérifier les informations de l'utilisateur dans la base de données
+    // Vérifs infos users base de données
     $stmt = $bdd->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->bindParam(":email", $email);
     $stmt->execute();
@@ -17,8 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($utilisateur && password_verify($mot_de_passe, $utilisateur["password"])) {
         session_start();
         $_SESSION["users_id"] = $utilisateur["id"];
+        $_SESSION["lastname"] = $utilisateur["lastname"];
+        $_SESSION["firstname"] = $utilisateur["firstname"];
+        $_SESSION["email"] = $utilisateur["email"];
         //echo "connexion reussi";
-        // Redirige user vers son espace personnel
+        // Redirige users vers son espace personnel
         header("Location: /VroomVroomBids/Views/Profile/EspacePerso.php");
        exit; // Termine le script après la redirection
     } else {
