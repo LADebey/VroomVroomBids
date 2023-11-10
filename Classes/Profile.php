@@ -28,13 +28,9 @@ class Profile extends User
     {
         $dbh = new PDO("mysql:dbname=bocal_vroomvroombids;host=127.0.0.1", "root", "");
         $id = $dbh->query("SELECT id FROM users");
-        $firstname = $_POST["firstname"];
-        $lastname = $_POST["lastname"];
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $salesNumber = $_POST["salesnumber"];
 
-        $sql = "UPDATE users SET firstname='$firstname', lastname='$lastname', email='$email', passwords='$password', sales_number='$salesNumber'  where id='2'";
+
+        $sql = "UPDATE users SET firstname='$this->firstname', lastname='$this->lastname', email='$this->email', passwords='$this->email', sales_number='$this->email'  where id='2'";
 
         if ($dbh->query($sql) === TRUE) {
             echo "Yes ";

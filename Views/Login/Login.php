@@ -1,8 +1,9 @@
-<?php define('ROOT_PATH', './'); ?>
-<?php include("Menu.php"); ?>
-<?php
-$bdd = new PDO("mysql:host=127.0.0.1;dbname=bocal_vroomvroombids;port=8889", "root", "root"); //Apple
-// $bdd = new PDO ("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids","root",""); //Windows
+<?php define('ROOT_PATH', './');
+
+
+
+// $bdd = new PDO("mysql:host=127.0.0.1;dbname=bocal_vroomvroombids;port=8889", "root", "root"); //Apple
+$bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); //Windows
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
@@ -20,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         //echo "connexion reussi";
         // Redirige user vers son espace personnel
         header("Location: /VroomVroomBids/Views/Profile/EspacePerso.php");
-       exit; // Termine le script après la redirection
+        exit; // Termine le script après la redirection
     } else {
         echo "Identifiants incorrects. Veuillez réessayer.";
     }
@@ -29,22 +30,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="Login.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
+
 <body>
-<div class="login">
-    <header class="header">
-        <span class="text">LOGIN</span>
-        <span class="loader"></span>
-    </header>
-    <form class="form" method="post" action="Login.php">  
-        <input class="input" type="email" name="email" placeholder="Email">
-        <input class="input" type="password" name="password" placeholder="Mot de passe">
-        <button class="btn" type="submit"></button>
-    </form>
-</div>
+    <div class="login">
+        <header class="header">
+            <span class="text">LOGIN</span>
+            <span class="loader"></span>
+        </header>
+        <form class="form" method="post" action="Login.php">
+            <input class="input" type="email" name="email" placeholder="Email">
+            <input class="input" type="password" name="password" placeholder="Mot de passe">
+            <button class="btn" type="submit"></button>
+        </form>
+    </div>
     <a href="/VroomVroomBids/Views/Register/Register.php" class="resetbtn">Inscription</a>
     <!-- <script>
     $(document).ready(function() {
@@ -61,4 +64,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     });
     </script> -->
 </body>
+
 </html>

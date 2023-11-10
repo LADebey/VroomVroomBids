@@ -1,10 +1,15 @@
 <?php include("Menu.php"); ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Espace personnel</title>
 </head>
+
 <body>
+    <?php
+    require_once __DIR__ . "/../Navigation/Menu.php";
+    ?>
     <h1>Espace personnel</h1>
 
     <h2>Enchères remportées</h2>
@@ -27,4 +32,5 @@
         <input type="submit" value="Modifier le profil">
     </form>
 </body>
+
 </html>
