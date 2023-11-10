@@ -3,7 +3,6 @@ include("../Navigation/Menu.php");
 
 try {
     $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
-    // $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
 } catch (PDOException $e) {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
@@ -13,10 +12,10 @@ $marque = isset($_POST["brand"]) ? $_POST["brand"] : '';
 $modele = isset($_POST["model"]) ? $_POST["model"] : '';
 $date_end = isset($_POST["date_end"]) ? $_POST["date_end"] : '';
 
-// contruire requête SQL
+// Construire requête SQL
 $sql = "SELECT * FROM post WHERE 1";
 
-// conditions de filtrage
+// Conditions de filtrage
 if (!empty($marque)) {
     $sql .= " AND brand = :marque";
 }
@@ -36,7 +35,6 @@ $stmt = $bdd->prepare($sql);
 if (!empty($marque)) {
     $stmt->bindParam(':marque', $marque);
 }
-
 if (!empty($modele)) {
     $stmt->bindParam(':modele', $modele);
 }
@@ -56,7 +54,8 @@ $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
     <div class="filtre">
-        <div class="filtretat">
+        <form action="filtre.php" method="post">
+            <div class="filtretat">
                 <label for="date_end">Selectionnez un type d'enchères:</label>
                 <select name="date_end">
                     <option value="en_cours" <?= ($date_end == 'en_cours') ? 'selected' : '' ?>>Enchères en cours</option>
@@ -65,7 +64,6 @@ $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <br>
             </div>
 
-        <form action="filtre.php" method="post">
             <div class="filtremarque">
                 <label for="brand">Et/Ou</label>
                 <input type="text" name="brand" placeholder="Filtrer par Marque" value="<?= $marque ?>">
@@ -81,6 +79,7 @@ $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <input type="submit" value="Filtrer">
         </form>
     </div>
+
     <div class="cardannonce">
         <ul>
             <?php foreach ($annonces as $annonce) : ?>
