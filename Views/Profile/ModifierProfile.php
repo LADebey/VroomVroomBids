@@ -1,9 +1,9 @@
 <?php
-include("Menu.php");
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+session_start();
 
-session_start(); // Assurez-vous que session_start() est appelé au début du fichier.
+include("Menu.php");
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 try {
     $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
@@ -17,9 +17,9 @@ if (isset($_SESSION['email'])) {
     $afficher_profil_statement = $bdd->prepare("SELECT * FROM users WHERE email = ?");
     $afficher_profil_statement->execute(array($_SESSION['email']));
     $afficher_profil = $afficher_profil_statement->fetch();
-
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["id"])) {
-        $utilisateur_id = $_SESSION["id"];
+    // var_dump($_SESSION["users_id"]);
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION["users_id"])) {
+        $utilisateur_id = $_SESSION["users_id"];
         $nom = $_POST["lastname"];
         $prenom = $_POST["firstname"];
         $email = $_POST["email"];
@@ -27,7 +27,7 @@ if (isset($_SESSION['email'])) {
 
         $query = "UPDATE users SET firstname = :prenom, lastname = :nom, email = :email";
 
-        // mise à jour du mot de passe si un nouveau mot de passe est fourni
+        // mise à jour MDP s'il veut
         if (!empty($nouveau_mot_de_passe)) {
             $query .= ", password = :mot_de_passe";
         }
@@ -40,7 +40,7 @@ if (isset($_SESSION['email'])) {
         $statement->bindValue(":email", $email);
         $statement->bindValue(":id", $utilisateur_id);
 
-        // Ajouter le mot de passe uniquement s'il est fourni
+        // Ajouter MDP s'il est fourni
         if (!empty($nouveau_mot_de_passe)) {
             $hashed_password = password_hash($nouveau_mot_de_passe, PASSWORD_DEFAULT);
             $statement->bindParam(":mot_de_passe", $hashed_password);
@@ -49,6 +49,7 @@ if (isset($_SESSION['email'])) {
         try {
             $statement->execute();
             echo "Mise à jour réussie.";
+            header("Location: /VroomVroomBids/Views/Profile/EspacePerso.php");
         } catch (PDOException $e) {
             echo "Erreur de mise à jour : " . $e->getMessage();
         }
