@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-include("Menu.php");
+include('../../Navigation/Menu.php');
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
 
 try {
-    $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
-    // $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
+    // $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
+    $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
 
 } catch (PDOException $e) {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
@@ -29,7 +29,7 @@ if (isset($_SESSION['email'])) {
 
         // mise à jour MDP s'il veut
         if (!empty($nouveau_mot_de_passe)) {
-            $query .= ", password = :mot_de_passe";
+            $query .= ", passwords = :mot_de_passe";
         }
 
         $query .= " WHERE id = :id";
@@ -61,12 +61,17 @@ if (isset($_SESSION['email'])) {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier Profil</title>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>
+message.txt
+3 Ko

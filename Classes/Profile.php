@@ -23,17 +23,4 @@ class Profile extends User
 
         </div>";
     }
-
-    public function editProfile()
-    {
-        $dbh = new PDO("mysql:dbname=bocal_vroomvroombids;host=127.0.0.1", "root", "");
-        $id = $dbh->query("SELECT id FROM users");
-
-
-        $sql = "UPDATE users SET firstname='$this->firstname', lastname='$this->lastname', email='$this->email', passwords='$this->email', sales_number='$this->email'  where id='2'";
-
-        if ($dbh->query($sql) === TRUE) {
-            echo "Yes ";
-        }
-    }
 }

@@ -1,9 +1,8 @@
 <?php define('ROOT_PATH', './'); ?>
-<?php include("Menu.php"); ?>
 <?php
 try {
-    $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroumvroumbids", "root", "root"); //Apple
-    // $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
+    // $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroumvroumbids", "root", "root"); //Apple
+    $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
 
 } catch (PDOException $e) {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
@@ -23,12 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($stmt->rowCount() > 0) {
         $error = "L'adresse email est déjà utilisée. Veuillez en choisir une autre.";
     } else {
-        $sql = "INSERT INTO users (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
+        $sql = "INSERT INTO users (firstname, lastname, email, passwords) VALUES (:firstname, :lastname, :email, :passwords)";
         $stmt = $bdd->prepare($sql);
         $stmt->bindValue(':lastname', $nom, PDO::PARAM_STR);
         $stmt->bindValue(':firstname', $prenom, PDO::PARAM_STR);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-        $stmt->bindValue(':password', $mot_de_passe, PDO::PARAM_STR);
+        $stmt->bindValue(':passwords', $mot_de_passe, PDO::PARAM_STR);
         $results = $stmt->execute();
         var_dump($results);
         var_dump($stmt->errorInfo());
@@ -37,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } else {
             $error = "Une erreur est survenue lors de l'inscription.";
         }
-        header("Location: Home.php");
+        header("Location: /VroomVroomBids/Views/Home/Home.php");
         exit;
     }
 }
@@ -45,31 +44,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="Register.css">
 </head>
+
 <body>
-<div class="RegisterContainer">
-    <form class="RegisterForm" action="Register.php" method="post">
-    <h1>Inscription</h1>
-    <?php
-    if (!empty($error)) {
-        echo "<div style='color: red;'>$error</div>";
-    }
-    if (!empty($success)) {
-        echo "<div style='color: green;'>$success</div>";
-    }
-    ?>
-        <label for="name">Nom :</label>
-        <input type="text" name="name" required><br>
-        <label for="firstname">Prénom :</label>
-        <input type="text" name="firstname" required><br>
-        <label for="email">Email :</label>
-        <input type="email" name="email" required><br>
-        <label for="password">Mot de passe :</label>
-        <input type="password" name="password" required><br>
-        <input type="submit" value="S'inscrire">
-    </form>
+    <div class="RegisterContainer">
+        <form class="RegisterForm" action="Register.php" method="post">
+            <h1>Inscription</h1>
+            <?php
+            if (!empty($error)) {
+                echo "<div style='color: red;'>$error</div>";
+            }
+            if (!empty($success)) {
+                echo "<div style='color: green;'>$success</div>";
+            }
+            ?>
+            <label for="name">Nom :</label>
+            <input type="text" name="name" required><br>
+            <label for="firstname">Prénom :</label>
+            <input type="text" name="firstname" required><br>
+            <label for="email">Email :</label>
+            <input type="email" name="email" required><br>
+            <label for="password">Mot de passe :</label>
+            <input type="password" name="password" required><br>
+            <input type="submit" value="S'inscrire">
+        </form>
     </div>
 </body>
+
 </html>

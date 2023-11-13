@@ -1,9 +1,7 @@
 <?php
-include("Navigation\Menu.php");
-
 try {
-    $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
-    // $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
+    // $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
+    $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
 } catch (PDOException $e) {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
@@ -23,19 +21,25 @@ if (isset($_SESSION["users_id"])) {
     header("Location: /VroomVroomBids/Views/Login/Login.php");
     exit;
 }
-    // Récup infos profil de users
-    $stmtProfil = $bdd->prepare("SELECT * FROM users WHERE id = :users_id");
-    $stmtProfil->bindParam(":users_id", $user_id);
-    $stmtProfil->execute();
-    $afficher_profil = $stmtProfil->fetch(PDO::FETCH_ASSOC);
+// Récup infos profil de users
+$stmtProfil = $bdd->prepare("SELECT * FROM users WHERE id = :users_id");
+$stmtProfil->bindParam(":users_id", $user_id);
+$stmtProfil->execute();
+$afficher_profil = $stmtProfil->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="EspacePerso.css">
     <title>Espace personnel</title>
 </head>
+
 <body>
+
+    <?php
+    require_once __DIR__ . "/../../Navigation/Menu/Menu.php";
+    ?>
     <div class="espaceperso">
         <h1>Espace personnel</h1>
 
@@ -60,9 +64,9 @@ if (isset($_SESSION["users_id"])) {
             <h2>Modifier le profil:</h2>
             <form action="ModifierProfile.php" method="post">
                 <label for="lastname">Nom :</label>
-                <input type="text" name="lastname" value="<?php echo $afficher_profil['nom']; ?>" required><br>
+                <input type="text" name="lastname" value="<?php echo $afficher_profil['firstname']; ?>" required><br>
                 <label for="firstname">Prénom :</label>
-                <input type="text" name="firstname" value="<?php echo $afficher_profil['prenom']; ?>" required><br>
+                <input type="text" name="firstname" value="<?php echo $afficher_profil['lastname']; ?>" required><br>
                 <label for="email">Email :</label>
                 <input type="email" name="email" value="<?php echo $afficher_profil['email']; ?>" required><br>
                 <label for="password">Nouveau mot de passe :</label>
@@ -72,4 +76,7 @@ if (isset($_SESSION["users_id"])) {
         </div>
     </div>
 </body>
+
 </html>
+message.txt
+4 Ko

@@ -1,6 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .footer {
   display: flex;
   justify-content: space-around;
+  margin: 0;
+  bottom: 0;
 }
 
 .larger-column {
@@ -36,7 +43,7 @@
   color: #ffd018;
 }
 
-img {
+.logofooter {
   width: 150px;
   height: 150px;
   border-radius: 50%;

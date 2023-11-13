@@ -30,17 +30,4 @@ class History
         }
         echo "</div>";
     }
-
-    public function saveBid()
-    {
-        $name = $_POST["name"];
-        $priceNoTax = $_POST["pricenotax"];
-        $priceTax = $_POST["pricetax"];
-        $description = $_POST["description"];
-
-        $dbh = new PDO("mysql:dbname=bocal_shop;host=127.0.0.1", "root", "");
-        $product = $dbh->prepare("INSERT INTO products (name, price_no_tax, price_tax, description) VALUES (? , ?, ?, ?)");
-        $product->execute([$name, $priceNoTax, $priceTax, $description]);
-        echo "Votre produit a été sauvegardé dans la base de données";
-    }
 }
