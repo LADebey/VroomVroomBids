@@ -23,10 +23,13 @@ class Post
     public function savePost()
     {
 
+        //FONCTION POUR QUE LA DATE FONCTIONNE AU BON FORMAT 
+
+        $formattedDate = date("Y-m-d", strtotime($this->dateEnd));
 
         $dbh = new PDO("mysql:dbname=bocal_vroomvroombids;host=127.0.0.1", "root", "");
-        $post = $dbh->prepare("INSERT INTO posts (model, brand, power, years, descriptions, min_price, date_end ) VALUES (? , ?, ?, ?, ?, ?, ?)");
-        $post->execute([$this->model, $this->brand, $this->power, $this->year, $this->description, $this->minPrice, $this->dateEnd]);
+        $post = $dbh->prepare("INSERT INTO post (`model`, `brand`, `power`, `years`, `descriptions`, `min_price`, `date_end` ) VALUES (? , ?, ?, ?, ?, ?, ?)");
+        $post->execute([$this->model, $this->brand, $this->power, $this->year, $this->description, $this->minPrice, $formattedDate]); // MODIF POUR LA FONCTION 
         echo "Votre post a été sauvegardé dans la base de données";
     }
 
