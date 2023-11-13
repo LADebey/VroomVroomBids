@@ -1,22 +1,66 @@
 <?php
+$servername = "127.0.0.1";
+$dbname = "bocal_vroomvroombids";
+$username = "root";
+$password = "root";
 
-    $servername = "127.0.0.1";
-    $dbname = "bocal_vroomvroombids";
-    $username = "root";
-    $password = "root";
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
+$conn = new PDO("mysql:host=$servername;port=8889;dbname=$dbname", $username, $password);
 
-    $conn = new PDO("mysql:host=$servername;port=8889;dbname=$dbname", $username, $password);
+// infos users et enchère
+$details = $conn->query("SELECT id, firstname, lastname FROM users");
+$voitures = $details->fetch();
+$reponse = $conn->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
+$posts = $reponse->fetch();
 
-    $details = $conn->query("SELECT id, firstname, lastname FROM users");
-    $voitures = $details->fetch();
+// formulaire soumis ?
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Calcul du nouveau montant de l'enchère
+    $customBidAmount = 0;
+
+    if (isset($_POST['cent'])) {
+        $customBidAmount += 100;
+    } elseif (isset($_POST['cinq-cents'])) {
+        $customBidAmount += 500;
+    } elseif (isset($_POST['mille-cinq-cents'])) {
+        $customBidAmount += 1500;
+    } elseif (isset($_POST['deux-mille'])) {
+        $customBidAmount += 2000;
+    } elseif (isset($_POST['Encherir'])) {
+        $customBidAmount += $_POST['bids'];
+    }
+
+    // Insérer l'enchère dans la table 'bids'
+    $insertBid = $conn->prepare("INSERT INTO bids (user_id, post_id, price, date) VALUES (:user_id, :post_id, :price, NOW())");
+    $insertBid->bindParam(':user_id', $voitures['id']);
+    $insertBid->bindParam(':post_id', $posts['id']);
+    $insertBid->bindParam(':price', $customBidAmount);
+    $insertBid->execute();
+
+    // Calcul du nouveau prix de départ
+    $newMinPrice = $posts['min_price'] + $customBidAmount;
+
+    // Mettre à jour le prix de l'annonce avec le nouveau montant de l'enchère
+    $updatePostPrice = $conn->prepare("UPDATE post SET min_price = :min_price WHERE id = :post_id");
+    $updatePostPrice->bindParam(':min_price', $newMinPrice);
+    $updatePostPrice->bindParam(':post_id', $posts['id']);
+    $updatePostPrice->execute();
+
+    // Récupérer à nouveau les données post mises à jour
     $reponse = $conn->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
     $posts = $reponse->fetch();
 
+    // Tentez la redirection côté serveur
+    header("Location: ".$_SERVER['PHP_SELF']);
+    
+    // Si redirection côté serveur échoue, JavaScript pour rediriger côté client
+    echo "<script>window.location.href = '".$_SERVER['PHP_SELF']."';</script>";
+    
+    exit();
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,13 +68,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bonjour.css">
     <title>Document</title>
+    <script>
+        // Actualisez la page toutes les 30 secondes
+        setInterval(function(){
+            location.reload();
+        }, 30000);
+    </script>
 </head>
 <body>
-    
-<a href="../Views/Home/Home.php"><img id='logo' src='https://cdn.discordapp.com/attachments/1171733145700282409/1171742236124389376/f43a35e4-54ac-4efe-ab61-97a08b23cfe5.jpeg?ex=655dc8ff&is=654b53ff&hm=fafae2e4bd3c319ad600160edf7bfd689bf543cb71be86d4afc8c8ae4316f182&' alt=''></a>
-
 <?php 
-require_once __DIR__."/../Navigation/Menu.php";
+include '../Navigation/Menu.php'
 ?>
 
 <div class="un">
@@ -108,13 +155,12 @@ require_once __DIR__."/../Navigation/Menu.php";
                 <input type='submit' class='Btn' name='cinq-cents' value='+ 500€'>
                 <input type='submit' class='Btn' name='mille-cinq-cents' value='+ 1 500€'>
                 <input type='submit' class='Btn' name='deux-mille' value='+ 2 000€'> 
-                <input type='submit' class='Btn' name='valider' value='valider'><br>
                 ";
             ?>
 
             <form action="Posts.php">
-                <input type="number" name='bids' placeholder="Entrer votre montant à enchérir">
-                <input type="submit" class='Btn' value="Encherir">
+                <input type="number" name='bids' placeholder="Entrer votre montant">
+                <input type="submit" class='Btn' name="Encherir"value="Encherir">
             </form>
         
         </div>

@@ -1,54 +1,56 @@
 .footer {
-  display: flex;
-  justify-content: space-around;
-  position: fixed;
-  bottom: 0;
-  background-color: rgba(51, 51, 51, 0.5);
-  color: #fff;
-  padding: 20px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .larger-column {
-  width: 30%;
-  text-align: justify;
+    width: 40%;
 }
 
 .smaller-column {
-  width: 15%;
+    width: 15%;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
 }
 
 .smaller-column li:hover {
-  text-decoration: underline;
-  color: #ffd018;
-  cursor: pointer;
+    text-decoration: underline;
+    color: #ffd018;
+    cursor: pointer;
 }
 
 .smaller-column a {
-  text-decoration: none;
-  color: #fff;
+    text-decoration: none;
+    color: #fff;
 }
 
 .smaller-column a:hover {
-  color: #ffd018;
+    color: #ffd018;
 }
 
 .dotcom {
-  color: #ffd018;
+    color: #ffd018;
 }
 
-#logo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+.logoFooter {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
-
+p {
+    text-align: justify;
+}
 @media (max-width: 768px) {
-  .footer {
-    flex-direction: column;
-  }
+    .footer {
+        flex-direction: column;
+    }
 
-  .larger-column,
-  .smaller-column {
-    width: 100%;
-  }
+    .larger-column,
+    .smaller-column {
+        width: 100%;
+    }
 }
