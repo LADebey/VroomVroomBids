@@ -12,9 +12,9 @@
 
 
     <div id="nav">
-        <a href="../../Views/Posts.php">Enchères</a>
-        <a href="../Views/Login/Login.php">Connexion</a>
-        <a href="../Views/Register/Register.php">Inscription</a>
+        <a href="/VroomVroombids/Views/Posts.php">Enchères</a>
+        <a href="/VroomVroombids/Views/Login/Login.php">Connexion</a>
+        <a href="/VroomVroombids/Views/Register/Register.php">Inscription</a>
 
     </div>
 </body>

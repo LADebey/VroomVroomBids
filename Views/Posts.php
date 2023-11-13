@@ -1,14 +1,14 @@
 <?php
 
-    $servername = "localhost";
-    $dbname = "bocal_vroumvroumbids";
+    $servername = "127.0.0.1";
+    $dbname = "bocal_vroomvroombids";
     $username = "root";
     $password = "root";
 
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
 
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn = new PDO("mysql:host=$servername;port=8889;dbname=$dbname", $username, $password);
 
     $details = $conn->query("SELECT id, firstname, lastname FROM users");
     $voitures = $details->fetch();
