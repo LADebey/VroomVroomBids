@@ -36,10 +36,14 @@
   color: #ffd018;
 }
 
-img {
+.logoFooter {
   width: 150px;
   height: 150px;
   border-radius: 50%;
+}
+
+p {
+  text-align: justify;
 }
 
 @media (max-width: 768px) {

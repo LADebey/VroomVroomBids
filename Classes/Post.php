@@ -37,7 +37,7 @@ class Post
     {
 
         $dbh = new PDO("mysql:dbname=bocal_vroomvroombids;host=127.0.0.1", "root", "");
-        $post = $dbh->query("SELECT * FROM posts");
+        $post = $dbh->query("SELECT * FROM post");
         $posts = $post->fetchAll(PDO::FETCH_ASSOC);
 
         echo "<div class='renderCont'>";

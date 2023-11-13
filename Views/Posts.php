@@ -1,9 +1,9 @@
 <?php
 
-    $servername = "localhost";
-    $dbname = "bocal_vroumvroumbids";
+    $servername = "127.0.0.1";
+    $dbname = "bocal_vroomvroombids";
     $username = "root";
-    $password = "root";
+    $password = "";
 
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
@@ -27,10 +27,10 @@
 </head>
 <body>
     
-<a href="../Views/Home/Home.php"><img id='logo' src='https://cdn.discordapp.com/attachments/1171733145700282409/1171742236124389376/f43a35e4-54ac-4efe-ab61-97a08b23cfe5.jpeg?ex=655dc8ff&is=654b53ff&hm=fafae2e4bd3c319ad600160edf7bfd689bf543cb71be86d4afc8c8ae4316f182&' alt=''></a>
+
 
 <?php 
-require_once __DIR__."/../Navigation/Menu.php";
+include '../Navigation/Menu.php'
 ?>
 
 <div class="un">
@@ -122,7 +122,7 @@ require_once __DIR__."/../Navigation/Menu.php";
 </div>
 
 <?php 
-require_once __DIR__."/../Navigation/Footer.php";
+include '../Navigation/Footer.php'
 ?>
 
 </body>
