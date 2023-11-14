@@ -11,7 +11,7 @@
 <body>
 
     <?php
-    include('../../Navigation/Menu/Menu.php');
+    include_once('../../Navigation/Menu/Menu.php');
     ?>
 
     <video autoplay muted loop id="myVideo">

@@ -5,32 +5,6 @@
   padding: 0;
 }
 
-.navCont {
-  gap: 20px;
-  display: flex;
-}
-
-#nav {
-  font-size: 20px;
-  display: flex;
-  margin-left: 20px;
-  gap: 20px;
-  align-items: center;
-  margin-top: 5px;
-}
-
-#nav a {
-  text-decoration: none;
-  color: white;
-  margin-top: 10px;
-  font: 100%/1 "Lobster", cursive;
-}
-
-#nav a:hover {
-  color: #914f03;
-  font-size: larger;
-}
-
 #myVideo {
   position: fixed;
   z-index: -1;
@@ -38,10 +12,4 @@
   bottom: 0;
   width: 100%;
   filter: brightness(70%);
-}
-
-#logo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
 }

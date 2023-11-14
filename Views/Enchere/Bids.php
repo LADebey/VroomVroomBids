@@ -20,16 +20,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Bids.css">
+    <link rel="stylesheet" href="/VroomVroombids/Views/Enchere/Bids.css">
     <title>Document</title>
 </head>
 <body>
 
-<a href="../Views/Home/Home.php"><img id='logo' src='https://cdn.discordapp.com/attachments/1171733145700282409/1171742236124389376/f43a35e4-54ac-4efe-ab61-97a08b23cfe5.jpeg?ex=655dc8ff&is=654b53ff&hm=fafae2e4bd3c319ad600160edf7bfd689bf543cb71be86d4afc8c8ae4316f182&' alt=''></a>
-
-<?php 
-require_once __DIR__."/../Navigation/Menu.php";
-?>
+<?php include ('../../Navigation/Menu/Menu.php')?>
 
 <div class="bidouille">
         <?php foreach($posts as $post):?>
@@ -37,7 +33,7 @@ require_once __DIR__."/../Navigation/Menu.php";
                 <ul>
                     <li>
                         <div class="truc">
-                            <a href="/VroomVroombids/Views/Posts.php?id=<?php echo $post['id']?>"><img src="https://cdn.discordapp.com/attachments/1171733145700282409/1173604415459037254/corvette.jpg?ex=65648f49&is=65521a49&hm=357da93e8c5ee6d8b43296801290ae29daeacd80526c45e434aaa69171ef9d1b&" class="poulet" alt=""></a>
+                            <a href="/VroomVroombids/Views/Post/Posts.php?id=<?php echo $post['id']?>"><img src="https://cdn.discordapp.com/attachments/1171733145700282409/1173604415459037254/corvette.jpg?ex=65648f49&is=65521a49&hm=357da93e8c5ee6d8b43296801290ae29daeacd80526c45e434aaa69171ef9d1b&" class="poulet" alt=""></a>
                         </div>
 
                         <div class="muche">
@@ -48,7 +44,7 @@ require_once __DIR__."/../Navigation/Menu.php";
                             <?php echo "Détails produit : ". $post['descriptions']."<br>"; ?>
                             <?php echo "Prix d'enchère : ". $post['min_price']."€ <br>"; ?>
                             <?php echo "Fin d'enchère : ". $post['date_end']."<br>"; ?></p>
-                            <p><a href="/VroomVroombids/Views/Posts.php?id=<?php echo $post['id']?>"><button class="info">En savoir plus ></button></a></p>
+                            <p><a href="/VroomVroombids/Views/Post/Posts.php?id=<?php echo $post['id']?>"><button class="info">En savoir plus ></button></a></p>
                         </div>
 
                     </li>

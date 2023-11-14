@@ -79,10 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
  
-<a href="../Views/Home/Home.php"><img id='logo' src='https://cdn.discordapp.com/attachments/1171733145700282409/1171742236124389376/f43a35e4-54ac-4efe-ab61-97a08b23cfe5.jpeg?ex=655dc8ff&is=654b53ff&hm=fafae2e4bd3c319ad600160edf7bfd689bf543cb71be86d4afc8c8ae4316f182&' alt=''></a>
-
-<?php 
-require_once __DIR__."/../Navigation/Menu.php";
+<?php
+    include_once('../../Navigation/Menu/Menu.php');
 ?>
 
 <div class="un">
