@@ -32,30 +32,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $customBidAmount += $_POST['bids'];
     }
 
-    // Insérer l'enchère dans la table 'bids'
+    // enchère dans 'bids'
     $insertBid = $conn->prepare("INSERT INTO bids (user_id, post_id, price, date) VALUES (:user_id, :post_id, :price, NOW())");
     $insertBid->bindParam(':user_id', $voitures['id']);
     $insertBid->bindParam(':post_id', $posts['id']);
     $insertBid->bindParam(':price', $customBidAmount);
     $insertBid->execute();
 
-    // Calcul du nouveau prix de départ
+    // Calcul new price
     $newMinPrice = $posts['min_price'] + $customBidAmount;
 
-    // Mettre à jour le prix de l'annonce avec le nouveau montant de l'enchère
+    // Maj prix annonce av new montant
     $updatePostPrice = $conn->prepare("UPDATE post SET min_price = :min_price WHERE id = :post_id");
     $updatePostPrice->bindParam(':min_price', $newMinPrice);
     $updatePostPrice->bindParam(':post_id', $posts['id']);
     $updatePostPrice->execute();
 
-    // Récupérer à nouveau les données post mises à jour
+    // Récup données post MAJ
     $reponse = $conn->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
     $posts = $reponse->fetch();
 
-    // Tentez la redirection côté serveur
+    // redirection côté serveur
     header("Location: ".$_SERVER['PHP_SELF']);
     
-    // Si redirection côté serveur échoue, JavaScript pour rediriger côté client
+    // Si redirection côté serveur échoue, JavaScript pour côté client
     echo "<script>window.location.href = '".$_SERVER['PHP_SELF']."';</script>";
     
     exit();
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="bonjour.css">
     <title>Document</title>
     <script>
-        // Actualisez la page toutes les 30 secondes
+        // Actu toutes les 30 secondes
         setInterval(function(){
             location.reload();
         }, 30000);
