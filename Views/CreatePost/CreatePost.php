@@ -11,7 +11,7 @@
  <?php $currentDate = date('d-m-Y'); ?>
 
  <div class="CreatePostContainer">
-    <form class="CreatePostForm" action="Post.php" method="post">
+    <form class="CreatePostForm" action="" method="post">
         <h2>Créer une enchère</h2>
         <label for="model">Modèle de la voiture:</label>
         <input type="text" name="model" placeholder="Corolla"/>
@@ -20,9 +20,9 @@
         <label for="power">Puissance:</label>
         <input type="text" name="power" placeholder="140"/>
         <label for="years">Année:</abel>
-        <input type="number" name="year" placeholder="2023" min="1886" max="2024"placeholder="2023" />
+        <input type="number" name="years" placeholder="2023" min="1886" max="2024" />
         <label for="descriptions">Description:</label>
-        <input type="textarea" name="description" placeholder="Toyota Corolla Toyota Corolla Toyota Corolla Toyota Corolla"/>
+        <input type="text" name="descriptions" placeholder="Toyota Corolla Toyota Corolla Toyota Corolla Toyota Corolla"/>
         <label for="min_price">Prix minimum:</label>
         <input type="number" name="min_price" step="0.01" min="1" placeholder="8000"/>
         <label for="date_end">Date de fin de l'enchère:</label>
@@ -47,10 +47,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $myAuction -> savePost();
     }
 
-require_once "../../Connexion.php";
-$query = $bdd->prepare("SELECT * FROM post");
-$query->execute();
-$results = $query->fetchAll();?>
 
 
 

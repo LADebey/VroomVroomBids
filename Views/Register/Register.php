@@ -17,12 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($stmt->rowCount() > 0) {
         $error = "L'adresse email est déjà utilisée. Veuillez en choisir une autre.";
     } else {
-        $sql = "INSERT INTO users (firstname, lastname, email, passwords) VALUES (:firstname, :lastname, :email, :passwords)";
+        $sql = "INSERT INTO users (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
         $stmt = $bdd->prepare($sql);
         $stmt->bindValue(':lastname', $nom, PDO::PARAM_STR);
         $stmt->bindValue(':firstname', $prenom, PDO::PARAM_STR);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
-        $stmt->bindValue(':passwords', $mot_de_passe, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $mot_de_passe, PDO::PARAM_STR);
         $results = $stmt->execute();
         var_dump($results);
         var_dump($stmt->errorInfo());

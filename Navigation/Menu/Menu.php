@@ -17,6 +17,7 @@
         <a href="/VroomVroombids/Views/Enchere/Bids.php">Enchères</a>
         <a href="/VroomVroombids/Views/Login/Login.php">Connexion</a>
         <a href="/VroomVroombids/Views/Register/Register.php">Inscription</a>
+        <a href="/VroomVroombids/Views/CreatePost/CreatePost.php">Annonce</a>
     </div>
     
 </body>

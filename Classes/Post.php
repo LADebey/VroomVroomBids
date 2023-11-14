@@ -29,7 +29,7 @@
         $formattedDate = date("Y-m-d", strtotime($this->dateEnd));
         require_once "../../Connexion.php";
         $post = $bdd->prepare("INSERT INTO post (`model`, `brand`, `power`, `years`, `descriptions`, `min_price`, `date_end` ) VALUES (? , ?, ?, ?, ?, ?, ?)");
-        $post->execute([$this->model, $this->brand, $this->power, $this->year, $this->description, $this->minPrice, $formattedDate]); // MODIF POUR LA FONCTION 
+        $post->execute([$this->model, $this->brand, $this->power, $this->year, $this->description, $this->minPrice, $this->dateEnd]); // MODIF POUR LA FONCTION 
         echo "Votre post a été sauvegardé dans la base de données";
     }
 
