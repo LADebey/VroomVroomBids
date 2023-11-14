@@ -1,6 +1,6 @@
 <?php
-require "/VroomVroomBids/Connexion.php";
-class Post
+        require_once "../../Connexion.php";
+        class Post
 {
     public string $model;
     public string $brand;
