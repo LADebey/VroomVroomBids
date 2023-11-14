@@ -42,14 +42,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $_POST["years"],
         $_POST["descriptions"],
         $_POST["min_price"],
-        $_POST["date_end"],
-        $_POST["current_date"]
+        $_POST["date_end"]
         );
-      $myAuction -> sauvegarde();
+        $myAuction -> savePost();
     }
 
-$pdo = new PDO ("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids","root","");
-$query = $pdo->prepare("SELECT * FROM post");
+require_once "../../Connexion.php";
+$query = $bdd->prepare("SELECT * FROM post");
 $query->execute();
 $results = $query->fetchAll();?>
 

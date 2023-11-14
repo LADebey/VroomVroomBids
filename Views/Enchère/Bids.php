@@ -1,17 +1,11 @@
 <?php
-
-    $servername = "localhost";
-    $dbname = "bocal_vroomvroombids";
-    $username = "root";
-    $password = "root";
-
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
 
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
+    require_once "../../Connexion.php";
+    
     $reponse = "SELECT id, model, brand, power, years, descriptions, min_price, date_end FROM post";
-    $posts = $conn->query($reponse);
+    $posts = $bdd->query($reponse);
 
 ?>
 

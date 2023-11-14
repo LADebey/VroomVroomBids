@@ -1,18 +1,14 @@
 <?php
 
-    $servername = "localhost";
-    $dbname = "bocal_vroomvroombids";
-    $username = "root";
-    $password = "root";
+require_once "../../Connexion.php";
+
 
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
 
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-    $details = $conn->query("SELECT id, firstname, lastname FROM users u WHERE u.id='".($_GET['id'])."'");
+    $details = $bdd->query("SELECT id, firstname, lastname FROM users u WHERE u.id='".($_GET['id'])."'");
     $voitures = $details->fetch();
-    $reponse = $conn->query("SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post p WHERE p.id='".($_GET['id'])."'");
+    $reponse = $bdd->query("SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post p WHERE p.id='".($_GET['id'])."'");
     $posts = $reponse->fetch();
 
     // formulaire soumis ?

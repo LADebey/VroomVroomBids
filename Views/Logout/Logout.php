@@ -11,6 +11,8 @@
 
 </head>
 <?php
+require_once "../../Connexion.php";
+
 session_start();
 
 // Détruit toutes les variables de session

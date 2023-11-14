@@ -1,11 +1,8 @@
 <?php
 include("../Navigation/Menu.php");
 
-try {
-    $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
-} catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
-}
+require_once "../../Connexion.php";
+
 
 // Initialiser variables filtrage
 $marque = isset($_POST["brand"]) ? $_POST["brand"] : '';

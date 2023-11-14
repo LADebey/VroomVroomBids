@@ -5,13 +5,7 @@ include('../../Navigation/Menu.php');
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
 
-try {
-    // $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
-    $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
-
-} catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
-}
+require_once "../../Connexion.php";
 
 if (isset($_SESSION['email'])) {
     $afficher_profil_statement = $bdd->prepare("SELECT * FROM users WHERE email = ?");
@@ -73,5 +67,3 @@ if (isset($_SESSION['email'])) {
 </body>
 
 </html>
-message.txt
-3 Ko
