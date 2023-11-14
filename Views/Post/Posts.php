@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $updatePostPrice->execute();
 
     // Récup données post MAJ
-    $reponse = $conn->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
+    $reponse = $bdd->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
     $posts = $reponse->fetch();
 
     // redirection côté serveur
