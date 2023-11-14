@@ -20,7 +20,7 @@
         <label for="power">Puissance:</label>
         <input type="text" name="power" placeholder="140"/>
         <label for="years">Année:</abel>
-        <input type="number" name="years" placeholder="2023" min="1886" max="2024" />
+        <input type="date" name="years"/>
         <label for="descriptions">Description:</label>
         <input type="text" name="descriptions" placeholder="Toyota Corolla Toyota Corolla Toyota Corolla Toyota Corolla"/>
         <label for="min_price">Prix minimum:</label>

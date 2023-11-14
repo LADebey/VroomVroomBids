@@ -26,6 +26,7 @@
 
         //FONCTION POUR QUE LA DATE FONCTIONNE AU BON FORMAT 
         global $bdd;
+        $formattedYears =date("Y-m-d", strtotime($this->years));
         $formattedDate = date("Y-m-d", strtotime($this->dateEnd));
          require_once "../../Connexion.php";
         $post = $bdd->prepare("INSERT INTO post (`model`, `brand`, `power`, `years`, `descriptions`, `min_price`, `date_end` ) VALUES (? , ?, ?, ?, ?, ?, ?)");

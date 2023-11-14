@@ -1,61 +1,78 @@
 <?php
-
 require_once "../../Connexion.php";
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
 
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
+// Vérifier si l'ID est défini dans l'URL
+if (isset($_GET['id'])) {
+    $userId = $_GET['id'];
+     // Récupérer les détails de l'utilisateur
+    $userDetails = $bdd->query("SELECT id, firstname, lastname FROM users WHERE id='" . $userId . "'");
+    $voitures = $userDetails->fetch();
+ 
+     // Récupérer les détails du post en utilisant l'identifiant du post
+    $postDetails = $bdd->query("SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post WHERE id='" . $userId . "'");
+    $posts = $postDetails->fetch();
 
-    $details = $bdd->query("SELECT id, firstname, lastname FROM users u WHERE u.id='".($_GET['id'])."'");
-    $voitures = $details->fetch();
-    $reponse = $bdd->query("SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post p WHERE p.id='".($_GET['id'])."'");
-    $posts = $reponse->fetch();
+    // Vérifier si les détails et les messages ont été récupérés avec succès
+    if (!$voitures || !$posts) {
+        echo "Error fetching details or posts.";
+    } else {
+        // Le reste de votre code
+    }
+    // Affichez le contenu des résultats pour le débogage
+    //var_dump($voitures);
+    //var_dump($posts);
 
     // formulaire soumis ?
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Calcul du nouveau montant de l'enchère
-    $customBidAmount = 0;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Calcul du nouveau montant de l'enchère
+        $customBidAmount = 0;
 
-    if (isset($_POST['cent'])) {
-        $customBidAmount += 100;
-    } elseif (isset($_POST['cinq-cents'])) {
-        $customBidAmount += 500;
-    } elseif (isset($_POST['mille-cinq-cents'])) {
-        $customBidAmount += 1500;
-    } elseif (isset($_POST['deux-mille'])) {
-        $customBidAmount += 2000;
-    } elseif (isset($_POST['Encherir'])) {
-        $customBidAmount += $_POST['bids'];
+        if (isset($_POST['cent'])) {
+            $customBidAmount += 100;
+        } elseif (isset($_POST['cinq-cents'])) {
+            $customBidAmount += 500;
+        } elseif (isset($_POST['mille-cinq-cents'])) {
+            $customBidAmount += 1500;
+        } elseif (isset($_POST['deux-mille'])) {
+            $customBidAmount += 2000;
+        } elseif (isset($_POST['Encherir'])) {
+            $customBidAmount += $_POST['bids'];
+        }
+
+        // enchère dans 'bids'
+        $insertBid = $bdd->prepare("INSERT INTO bids (user_id, post_id, price, date) VALUES (:user_id, :post_id, :price, NOW())");
+        $insertBid->bindParam(':user_id', $voitures['id']);
+        $insertBid->bindParam(':post_id', $posts['id']);
+        $insertBid->bindParam(':price', $customBidAmount);
+        $insertBid->execute();
+
+        // Calcul new price
+        $newMinPrice = $posts['min_price'] + $customBidAmount;
+
+        // Maj prix annonce av new montant
+        $updatePostPrice = $bdd->prepare("UPDATE post SET min_price = :min_price WHERE id = :post_id");
+        $updatePostPrice->bindParam(':min_price', $newMinPrice);
+        $updatePostPrice->bindParam(':post_id', $posts['id']);
+        $updatePostPrice->execute();
+
+        // Récup données post MAJ
+        $reponse = $bdd->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
+        $posts = $reponse->fetch();
+
+        // redirection côté serveur
+        header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $userId);
+        // Si redirection côté serveur échoue, JavaScript pour côté client
+        echo "<script>window.location.href = '" . $_SERVER['PHP_SELF'] . "?id=" . $userId . "';</script>";
+
+        exit();
     }
-
-    // enchère dans 'bids'
-    $insertBid = $bdd->prepare("INSERT INTO bids (user_id, post_id, price, date) VALUES (:user_id, :post_id, :price, NOW())");
-    $insertBid->bindParam(':user_id', $voitures['id']);
-    $insertBid->bindParam(':post_id', $posts['id']);
-    $insertBid->bindParam(':price', $customBidAmount);
-    $insertBid->execute();
-
-    // Calcul new price
-    $newMinPrice = $posts['min_price'] + $customBidAmount;
-
-    // Maj prix annonce av new montant
-    $updatePostPrice = $bdd->prepare("UPDATE post SET min_price = :min_price WHERE id = :post_id");
-    $updatePostPrice->bindParam(':min_price', $newMinPrice);
-    $updatePostPrice->bindParam(':post_id', $posts['id']);
-    $updatePostPrice->execute();
-
-    // Récup données post MAJ
-    $reponse = $bdd->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
-    $posts = $reponse->fetch();
-
-    // redirection côté serveur
-    header("Location: ".$_SERVER['PHP_SELF']);
-    
-    // Si redirection côté serveur échoue, JavaScript pour côté client
-    echo "<script>window.location.href = '".$_SERVER['PHP_SELF']."';</script>";
-    
-    exit();
+} else {
+    echo "No 'id' parameter found in the URL.";
 }
+?>
 
 ?>
 
@@ -91,12 +108,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php echo "Nom : ". $voitures['firstname']. "<br>";?>
                     <?php echo "Prénom : ". $voitures['lastname']; ?>
             </div>
-
-                <?php echo "Prix de départ : " . $posts['min_price']."€ <br>";?>
-                <?php echo "Description produit : " .$posts['descriptions']; ?>
-                <?php $date = $posts['date_end'];?>
-            
-        </div>
+                    <?php echo "Prix de départ : " . $posts['min_price']."€ <br>";?>
+                    <?php echo "Description produit : " .$posts['descriptions']; ?>
+                    <?php $date = $posts['date_end'];?>
+            </div>
         <div class="cinq">
             <p>Enchère :</p>
             <p id="demo"></p>
