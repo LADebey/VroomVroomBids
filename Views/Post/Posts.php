@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // enchère dans 'bids'
-    $insertBid = $conn->prepare("INSERT INTO bids (user_id, post_id, price, date) VALUES (:user_id, :post_id, :price, NOW())");
+    $insertBid = $bdd->prepare("INSERT INTO bids (user_id, post_id, price, date) VALUES (:user_id, :post_id, :price, NOW())");
     $insertBid->bindParam(':user_id', $voitures['id']);
     $insertBid->bindParam(':post_id', $posts['id']);
     $insertBid->bindParam(':price', $customBidAmount);
