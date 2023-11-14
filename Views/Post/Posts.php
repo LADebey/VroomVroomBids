@@ -15,6 +15,52 @@
     $reponse = $conn->query("SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post p WHERE p.id='".($_GET['id'])."'");
     $posts = $reponse->fetch();
 
+    // formulaire soumis ?
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Calcul du nouveau montant de l'enchère
+    $customBidAmount = 0;
+
+    if (isset($_POST['cent'])) {
+        $customBidAmount += 100;
+    } elseif (isset($_POST['cinq-cents'])) {
+        $customBidAmount += 500;
+    } elseif (isset($_POST['mille-cinq-cents'])) {
+        $customBidAmount += 1500;
+    } elseif (isset($_POST['deux-mille'])) {
+        $customBidAmount += 2000;
+    } elseif (isset($_POST['Encherir'])) {
+        $customBidAmount += $_POST['bids'];
+    }
+
+    // enchère dans 'bids'
+    $insertBid = $conn->prepare("INSERT INTO bids (user_id, post_id, price, date) VALUES (:user_id, :post_id, :price, NOW())");
+    $insertBid->bindParam(':user_id', $voitures['id']);
+    $insertBid->bindParam(':post_id', $posts['id']);
+    $insertBid->bindParam(':price', $customBidAmount);
+    $insertBid->execute();
+
+    // Calcul new price
+    $newMinPrice = $posts['min_price'] + $customBidAmount;
+
+    // Maj prix annonce av new montant
+    $updatePostPrice = $conn->prepare("UPDATE post SET min_price = :min_price WHERE id = :post_id");
+    $updatePostPrice->bindParam(':min_price', $newMinPrice);
+    $updatePostPrice->bindParam(':post_id', $posts['id']);
+    $updatePostPrice->execute();
+
+    // Récup données post MAJ
+    $reponse = $conn->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
+    $posts = $reponse->fetch();
+
+    // redirection côté serveur
+    header("Location: ".$_SERVER['PHP_SELF']);
+    
+    // Si redirection côté serveur échoue, JavaScript pour côté client
+    echo "<script>window.location.href = '".$_SERVER['PHP_SELF']."';</script>";
+    
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +70,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="voila.css">
     <title>Document</title>
+    <script>
+        // Actu toutes les 30 secondes
+        setInterval(function(){
+            location.reload();
+        }, 30000);
+    </script>
 </head>
 <body>
  
@@ -104,14 +156,13 @@ require_once __DIR__."/../Navigation/Menu.php";
                 <input type='submit' class='Btn' name='cent' value='+ 100€'>
                 <input type='submit' class='Btn' name='cinq-cents' value='+ 500€'>
                 <input type='submit' class='Btn' name='mille-cinq-cents' value='+ 1 500€'>
-                <input type='submit' class='Btn' name='deux-mille' value='+ 2 000€'> 
-                <input type='submit' class='Btn' name='valider' value='valider'><br>
+                <input type='submit' class='Btn' name='deux-mille' value='+ 2 000€'>
                 ";
             ?>
 
             <form action="Posts.php">
                 <input type="number" name='bids' placeholder="Entrer votre montant à enchérir">
-                <input type="submit" class='Btn' value="Encherir">
+                <input type="submit" class='Btn' name="Encherir" value="Encherir">
             </form>
         
         </div>
