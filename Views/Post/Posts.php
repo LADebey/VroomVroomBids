@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $newMinPrice = $posts['min_price'] + $customBidAmount;
 
     // Maj prix annonce av new montant
-    $updatePostPrice = $conn->prepare("UPDATE post SET min_price = :min_price WHERE id = :post_id");
+    $updatePostPrice = $bdd->prepare("UPDATE post SET min_price = :min_price WHERE id = :post_id");
     $updatePostPrice->bindParam(':min_price', $newMinPrice);
     $updatePostPrice->bindParam(':post_id', $posts['id']);
     $updatePostPrice->execute();
