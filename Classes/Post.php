@@ -5,18 +5,18 @@
     public string $model;
     public string $brand;
     public int $power;
-    public $year;
-    public string $description;
+    public $years;
+    public string $descriptions;
     public float $minPrice;
     public $dateEnd;
 
-    public function __construct($model, $brand, $power, $year, $description, $minPrice, $dateEnd)
+    public function __construct($model, $brand, $power, $years, $descriptions, $minPrice, $dateEnd)
     {
         $this->model = $model;
         $this->brand = $brand;
         $this->power = $power;
-        $this->year = $year;
-        $this->description = $description;
+        $this->years = $years;
+        $this->descriptions = $descriptions;
         $this->minPrice = $minPrice;
         $this->dateEnd = $dateEnd;
     }
@@ -25,11 +25,11 @@
     {
 
         //FONCTION POUR QUE LA DATE FONCTIONNE AU BON FORMAT 
-
+        global $bdd;
         $formattedDate = date("Y-m-d", strtotime($this->dateEnd));
-        require_once "../../Connexion.php";
+         require_once "../../Connexion.php";
         $post = $bdd->prepare("INSERT INTO post (`model`, `brand`, `power`, `years`, `descriptions`, `min_price`, `date_end` ) VALUES (? , ?, ?, ?, ?, ?, ?)");
-        $post->execute([$this->model, $this->brand, $this->power, $this->year, $this->description, $this->minPrice, $this->dateEnd]); // MODIF POUR LA FONCTION 
+        $post->execute([$this->model, $this->brand, $this->power, $this->years, $this->descriptions, $this->minPrice, $this->dateEnd]); // MODIF POUR LA FONCTION 
         echo "Votre post a été sauvegardé dans la base de données";
     }
 

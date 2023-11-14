@@ -11,7 +11,7 @@
  <?php $currentDate = date('d-m-Y'); ?>
 
  <div class="CreatePostContainer">
-    <form class="CreatePostForm" action="" method="post">
+    <form class="CreatePostForm" action="../CreatePost/CreatePost.php" method="post">
         <h2>Créer une enchère</h2>
         <label for="model">Modèle de la voiture:</label>
         <input type="text" name="model" placeholder="Corolla"/>
@@ -34,6 +34,7 @@
 </html>
 
 <?php
+require_once '../../Classes/Post.php';
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $myAuction = new Post (
         $_POST["model"], 
@@ -46,6 +47,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         );
         $myAuction -> savePost();
     }
+
+?>
 
 
 
