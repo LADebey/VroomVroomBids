@@ -1,7 +1,7 @@
 <?php
 
     $servername = "localhost";
-    $dbname = "bocal_vroumvroumbids";
+    $dbname = "bocal_vroomvroombids";
     $username = "root";
     $password = "root";
 
@@ -10,9 +10,9 @@
 
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
-    $details = $conn->query("SELECT id, firstname, lastname FROM users");
+    $details = $conn->query("SELECT id, firstname, lastname FROM users u WHERE u.id='".($_GET['id'])."'");
     $voitures = $details->fetch();
-    $reponse = $conn->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
+    $reponse = $conn->query("SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post p WHERE p.id='".($_GET['id'])."'");
     $posts = $reponse->fetch();
 
 ?>
@@ -22,11 +22,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bonjour.css">
+    <link rel="stylesheet" href="voila.css">
     <title>Document</title>
 </head>
 <body>
-    
+ 
 <a href="../Views/Home/Home.php"><img id='logo' src='https://cdn.discordapp.com/attachments/1171733145700282409/1171742236124389376/f43a35e4-54ac-4efe-ab61-97a08b23cfe5.jpeg?ex=655dc8ff&is=654b53ff&hm=fafae2e4bd3c319ad600160edf7bfd689bf543cb71be86d4afc8c8ae4316f182&' alt=''></a>
 
 <?php 
@@ -46,8 +46,6 @@ require_once __DIR__."/../Navigation/Menu.php";
                     <?php echo "Prénom : ". $voitures['lastname']; ?>
             </div>
 
-            
-            
                 <?php echo "Prix de départ : " . $posts['min_price']."€ <br>";?>
                 <?php echo "Description produit : " .$posts['descriptions']; ?>
                 <?php $date = $posts['date_end'];?>
@@ -90,7 +88,6 @@ require_once __DIR__."/../Navigation/Menu.php";
 
             <?php
                 if(isset($_POST['cent'])){
-                    $posts('INSERT INTO histories() ');
                     echo $posts['min_price'] + 100;
                 }
                 if(isset($_POST['cinq-cents'])){
@@ -120,10 +117,6 @@ require_once __DIR__."/../Navigation/Menu.php";
         </div>
     </div>
 </div>
-
-<?php 
-require_once __DIR__."/../Navigation/Footer.php";
-?>
 
 </body>
 </html>

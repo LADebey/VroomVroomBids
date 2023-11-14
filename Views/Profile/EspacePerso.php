@@ -60,9 +60,9 @@ if (isset($_SESSION["users_id"])) {
             <h2>Modifier le profil:</h2>
             <form action="ModifierProfile.php" method="post">
                 <label for="lastname">Nom :</label>
-                <input type="text" name="lastname" value="<?php echo $afficher_profil['nom']; ?>" required><br>
+                <input type="text" name="lastname" value="<?php echo $afficher_profil['firstname']; ?>" required><br>
                 <label for="firstname">Prénom :</label>
-                <input type="text" name="firstname" value="<?php echo $afficher_profil['prenom']; ?>" required><br>
+                <input type="text" name="firstname" value="<?php echo $afficher_profil['lastname']; ?>" required><br>
                 <label for="email">Email :</label>
                 <input type="email" name="email" value="<?php echo $afficher_profil['email']; ?>" required><br>
                 <label for="password">Nouveau mot de passe :</label>

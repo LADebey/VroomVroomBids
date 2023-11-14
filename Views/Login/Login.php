@@ -1,5 +1,4 @@
 <?php define('ROOT_PATH', './'); ?>
-<?php include("Menu.php"); ?>
 <?php
 $bdd = new PDO("mysql:host=127.0.0.1;dbname=bocal_vroomvroombids;port=8889", "root", "root"); //Apple
 // $bdd = new PDO ("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids","root",""); //Windows
