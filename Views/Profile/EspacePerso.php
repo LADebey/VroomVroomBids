@@ -68,6 +68,7 @@ $afficher_profil = $stmtProfil->fetch(PDO::FETCH_ASSOC);
                 <label for="password">Nouveau mot de passe :</label>
                 <input type="password" name="password"><br>
                 <input type="submit" value="Modifier le profil">
+                <input type="submit" value="Déconnexion">
             </form>
         </div>
     </div>

@@ -23,7 +23,7 @@ if (isset($_SESSION['email'])) {
 
         // mise à jour MDP s'il veut
         if (!empty($nouveau_mot_de_passe)) {
-            $query .= ", passwords = :mot_de_passe";
+            $query .= ", password = :mot_de_passe";
         }
 
         $query .= " WHERE id = :id";
