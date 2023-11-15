@@ -5,6 +5,17 @@
   padding: 0;
 }
 
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.MenuWrapper {
+  background-color: #1e2134;
+  width: 100vw;
+}
+
 h2,
 input[type="submit"] {
   font: 100%/1 "Lobster", cursive;
