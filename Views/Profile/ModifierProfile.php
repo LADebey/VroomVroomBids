@@ -4,7 +4,7 @@ session_start();
 include('../../Navigation/Menu.php');
 //error_reporting(E_ALL);
 //ini_set('display_errors', 1);
-
+ 
 require_once "../../Connexion.php";
 
 if (isset($_SESSION['email'])) {
