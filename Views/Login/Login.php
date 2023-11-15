@@ -47,6 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <form class="form" method="post" action="Login.php">
             <input class="input" type="email" name="email" placeholder="Email">
             <input class="input" type="password" name="password" placeholder="Mot de passe">
+            <p>Pas de compte?</p>
+            <a href="/VroomVroombids/Views/Register/Register.php">Inscription</a>
             <button class="btn" type="submit"></button>
         </form>
     </div>
