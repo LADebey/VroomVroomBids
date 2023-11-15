@@ -1,6 +1,5 @@
 <?php define('ROOT_PATH', './'); ?>
 <?php
-//$bdd = new PDO("mysql:host=127.0.0.1;dbname=bocal_vroomvroombids;port=8889", "root", "root"); //Apple
 require_once "../../Connexion.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -20,9 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["firstname"] = $utilisateur["firstname"];
         $_SESSION["email"] = $utilisateur["email"];
         //echo "connexion reussi";
-        // Redirige users vers son espace personnel
         header("Location: /VroomVroomBids/Views/Profile/EspacePerso.php");
-        exit; // Termine le script après la redirection
+        exit; // Termine le script
     } else {
         echo "Identifiants incorrects. Veuillez réessayer.";
     }

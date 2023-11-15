@@ -4,15 +4,15 @@ include("../Navigation/Menu.php");
 require_once "../../Connexion.php";
 
 
-// Initialiser variables filtrage
+// Init variables filtrage
 $marque = isset($_POST["brand"]) ? $_POST["brand"] : '';
 $modele = isset($_POST["model"]) ? $_POST["model"] : '';
 $date_end = isset($_POST["date_end"]) ? $_POST["date_end"] : '';
 
-// Construire requête SQL
+// requête SQL
 $sql = "SELECT * FROM post WHERE 1";
 
-// Conditions de filtrage
+// filtrage
 if (!empty($marque)) {
     $sql .= " AND brand = :marque";
 }
@@ -28,18 +28,16 @@ if ($date_end == 'en_cours') {
 // Préparation de la requête
 $stmt = $bdd->prepare($sql);
 
-// Remplacement des paramètres dans la requête
+// Remplacement params requête
 if (!empty($marque)) {
     $stmt->bindParam(':marque', $marque);
 }
 if (!empty($modele)) {
     $stmt->bindParam(':modele', $modele);
 }
-
-// Exécution de la requête
 $stmt->execute();
 
-// Récupération des résultats
+// Récup résults
 $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -81,7 +79,7 @@ $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <ul>
             <?php foreach ($annonces as $annonce) : ?>
                 <li class="cardannonce">
-                    <a href="annonce.php?id=<?= $annonce["id"] ?>">
+                    <a href="../../Views/Post/Posts.php?id=<?= $annonce["id"] ?>">
                     <?= $annonce["brand"] ?> <?= $annonce["model"] ?>
                     </a>
                 </li>

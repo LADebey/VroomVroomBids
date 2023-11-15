@@ -6,7 +6,7 @@ $host = "127.0.0.1";
 $port = "8889"; // Changer pour 3306 pour windows ou 8889 pour Apple
 $dbname = "bocal_vroomvroombids";
 $username = "root";
-$password = "root"; //Mot de passe Apple = "root"
+$password = "root"; //Mot de passe Apple = "root", ne rien mettre sur Windows
 
 try {
     $bdd = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $username, $password);

@@ -61,9 +61,6 @@ if (isset($_SESSION['email'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier Profil</title>
 </head>
-
 <body>
-
 </body>
-
 </html>

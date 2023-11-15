@@ -7,21 +7,18 @@ ini_set("display_errors", 1);
 // Vérifier si l'ID est défini dans l'URL
 if (isset($_GET['id'])) {
     $userId = $_GET['id'];
-     // Récupérer les détails de l'utilisateur
+     // Récup détails users
     $userDetails = $bdd->query("SELECT id, firstname, lastname FROM users WHERE id='" . $userId . "'");
     $voitures = $userDetails->fetch();
- 
-     // Récupérer les détails du post en utilisant l'identifiant du post
+     // Récup détails post en utilisant id post
     $postDetails = $bdd->query("SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post WHERE id='" . $userId . "'");
     $posts = $postDetails->fetch();
 
-    // Vérifier si les détails et les messages ont été récupérés avec succès
+    // Vérif si détails et messages sont récupérés
     if (!$voitures || !$posts) {
         echo "Error fetching details or posts.";
-    } else {
-        // Le reste de votre code
     }
-    // Affichez le contenu des résultats pour le débogage
+    // débogage
     //var_dump($voitures);
     //var_dump($posts);
 

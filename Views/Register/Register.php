@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
     $mot_de_passe = password_hash($_POST["password"], PASSWORD_BCRYPT);
 
-    // Vérification si une seule adresse mail
+    // Vérif si une seule adresse mail
     $stmt = $bdd->prepare("SELECT * FROM users WHERE email = :email");
     $stmt->bindValue(":email", $email, PDO::PARAM_STR);
     $stmt->execute();

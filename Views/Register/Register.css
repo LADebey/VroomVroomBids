@@ -83,6 +83,6 @@ h1 {
 
 @media screen and (max-width: 768px) {
     .RegisterForm {
-        width: 100%; /* Adapter la largeur à l'écran plus petit */
+        width: 100%;
     }
 }

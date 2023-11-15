@@ -1,10 +1,6 @@
 <?php
-try {
-    // $bdd = new PDO("mysql:host=127.0.0.1;port=8889;dbname=bocal_vroomvroombids", "root", "root");
-    $bdd = new PDO("mysql:host=127.0.0.1;port=3306;dbname=bocal_vroomvroombids", "root", ""); // Windows
-} catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
-}
+require_once "../../Connexion.php";
+
 session_start();
 
 // verification connexion avant $_SESSION["users_id"]
@@ -78,5 +74,3 @@ $afficher_profil = $stmtProfil->fetch(PDO::FETCH_ASSOC);
 </body>
 
 </html>
-message.txt
-4 Ko
