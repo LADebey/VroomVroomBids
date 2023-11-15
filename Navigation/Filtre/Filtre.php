@@ -1,5 +1,5 @@
 <?php
-include("../Navigation/Menu.php");
+include_once('../../Navigation/Menu/Menu.php');
 
 require_once "../../Connexion.php";
 
@@ -45,10 +45,12 @@ $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="Filtre.css">
     <title>Filtrer les annonces</title>
 </head>
+
 <body>
     <div class="filtre">
         <form action="filtre.php" method="post">
@@ -82,11 +84,12 @@ $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($annonces as $annonce) : ?>
                 <li class="cardannonce">
                     <a href="annonce.php?id=<?= $annonce["id"] ?>">
-                    <?= $annonce["brand"] ?> <?= $annonce["model"] ?>
+                        <?= $annonce["brand"] ?> <?= $annonce["model"] ?>
                     </a>
                 </li>
             <?php endforeach; ?>
         </ul>
     </div>
 </body>
+
 </html>
