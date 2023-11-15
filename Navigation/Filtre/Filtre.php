@@ -1,6 +1,4 @@
 <?php
-include("../Navigation/Menu.php");
-
 require_once "../../Connexion.php";
 
 
@@ -48,8 +46,8 @@ $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Filtrer les annonces</title>
 </head>
 <body>
-    <?php
-    require_once __DIR__ . "/../../Navigation/Menu/Menu.php";
+<?php
+    include('../../Navigation/Menu/Menu.php');
     ?>
     <div class="filtre">
         <form action="filtre.php" method="post">
