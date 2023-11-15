@@ -28,7 +28,7 @@ if (isset($_GET['id'])) {
         $connectedUserId = $_SESSION['users_id'];
 
         // Vérifier si l'utilisateur connecté est également l'auteur de l'annonce
-        if ($connectedUserId != $posts['user_id']) {
+        if ($connectedUserId != $posts['id']) {
             // formulaire soumis ?
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Calcul du nouveau montant de l'enchère
