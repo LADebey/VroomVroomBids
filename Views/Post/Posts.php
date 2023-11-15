@@ -71,8 +71,6 @@ if (isset($_GET['id'])) {
 }
 ?>
 
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,7 +86,7 @@ if (isset($_GET['id'])) {
     </script>
 </head>
 <body>
- 
+
 <?php
     include_once('../../Navigation/Menu/Menu.php');
 ?>
@@ -106,6 +104,26 @@ if (isset($_GET['id'])) {
                     <?php echo "Prénom : ". $voitures['lastname']; ?>
             </div>
                     <?php echo "Prix de départ : " . $posts['min_price']."€ <br>";?>
+                    <div class="enchere-dropdown">
+                        <p>Voir les enchères :</p>
+                        <select id="enchere-select">
+                            <?php
+                                 // Récup enchères pour ce post
+                                    $enchereDetails = $bdd->prepare("SELECT u.firstname, u.lastname, b.price, b.date 
+                                            FROM bids b
+                                            INNER JOIN users u ON b.user_id = u.id
+                                            WHERE b.post_id = :post_id
+                                            ORDER BY b.date DESC");
+                                    $enchereDetails->bindParam(':post_id', $posts['id']);
+                                    $enchereDetails->execute();
+        
+                                 // enchères menu déroulant
+                                    while ($enchere = $enchereDetails->fetch()) {
+                                    echo "<option>{$enchere['firstname']} {$enchere['lastname']} - {$enchere['price']} €</option>";
+                                }
+                                ?>
+                        </select>
+                    </div>
                     <?php echo "Description produit : " .$posts['descriptions']; ?>
                     <?php $date = $posts['date_end'];?>
             </div>
