@@ -1,4 +1,6 @@
 <?php
+session_start(); // Démarrer la session
+
 require_once "../../Connexion.php";
 
 error_reporting(E_ALL);
@@ -7,70 +9,73 @@ ini_set("display_errors", 1);
 // Vérifier si l'ID est défini dans l'URL
 if (isset($_GET['id'])) {
     $userId = $_GET['id'];
-     // Récup détails users
+
+    // Récupérer les détails de l'utilisateur qui a posté l'annonce
     $userDetails = $bdd->query("SELECT id, firstname, lastname FROM users WHERE id='" . $userId . "'");
     $voitures = $userDetails->fetch();
-     // Récup détails post en utilisant id post
-    $postDetails = $bdd->query("SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post WHERE id='" . $userId . "'");
+
+    // Récupérer les détails de l'annonce
+    $postDetails = $bdd->query("SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id, id FROM post WHERE id='" . $userId . "'");
     $posts = $postDetails->fetch();
 
-    // Vérif si détails et messages sont récupérés
+    // Vérifier si les détails des utilisateurs et des annonces sont récupérés
     if (!$voitures || !$posts) {
         echo "Error fetching details or posts.";
     }
-    // débogage
-    //var_dump($voitures);
-    //var_dump($posts);
 
-// formulaire soumis ?
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérifier si l'utilisateur qui enchérit n'est pas le même que celui qui a posté l'annonce
-    if ($voitures['id'] != $_SESSION['users_id']) {
-        // Calcul du nouveau montant de l'enchère
-        $customBidAmount = 0;
+    // Vérifier si l'utilisateur est connecté
+    if (isset($_SESSION['users_id'])) {
+        $connectedUserId = $_SESSION['users_id'];
 
-        if (isset($_POST['cent'])) {
-            $customBidAmount += 100;
-        } elseif (isset($_POST['cinq-cents'])) {
-            $customBidAmount += 500;
-        } elseif (isset($_POST['mille-cinq-cents'])) {
-            $customBidAmount += 1500;
-        } elseif (isset($_POST['deux-mille'])) {
-            $customBidAmount += 2000;
-        } elseif (isset($_POST['Encherir'])) {
-            $customBidAmount += $_POST['bids'];
+        // Vérifier si l'utilisateur connecté est également l'auteur de l'annonce
+        if ($connectedUserId != $posts['user_id']) {
+            // formulaire soumis ?
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // Calcul du nouveau montant de l'enchère
+                $customBidAmount = 0;
+
+                if (isset($_POST['cent'])) {
+                    $customBidAmount += 100;
+                } elseif (isset($_POST['cinq-cents'])) {
+                    $customBidAmount += 500;
+                } elseif (isset($_POST['mille-cinq-cents'])) {
+                    $customBidAmount += 1500;
+                } elseif (isset($_POST['deux-mille'])) {
+                    $customBidAmount += 2000;
+                } elseif (isset($_POST['Encherir'])) {
+                    $customBidAmount += $_POST['bids'];
+                }
+
+                // Enchère dans 'bids'
+                $insertBid = $bdd->prepare("INSERT INTO bids (user_id, post_id, price, date) VALUES (:user_id, :post_id, :price, NOW())");
+                $insertBid->bindParam(':user_id', $connectedUserId);
+                $insertBid->bindParam(':post_id', $posts['id']);
+                $insertBid->bindParam(':price', $customBidAmount);
+                $insertBid->execute();
+
+                // Calcul du nouveau prix
+                $newMinPrice = $posts['min_price'] + $customBidAmount;
+
+                // Mise à jour du prix de l'annonce avec le nouveau montant
+                $updatePostPrice = $bdd->prepare("UPDATE post SET min_price = :min_price WHERE id = :post_id");
+                $updatePostPrice->bindParam(':min_price', $newMinPrice);
+                $updatePostPrice->bindParam(':post_id', $posts['id']);
+                $updatePostPrice->execute();
+
+                // Redirection côté serveur
+                header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $userId);
+                // Si la redirection côté serveur échoue, JavaScript pour le côté client
+                echo "<script>window.location.href = '" . $_SERVER['PHP_SELF'] . "?id=" . $userId . "';</script>";
+
+                exit();
+            }
+        } else {
+            echo "Vous ne pouvez pas enchérir sur votre propre annonce.";
         }
-
-        // enchère dans 'bids'
-        $insertBid = $bdd->prepare("INSERT INTO bids (user_id, post_id, price, date) VALUES (:user_id, :post_id, :price, NOW())");
-        $insertBid->bindParam(':user_id', $voitures['id']);
-        $insertBid->bindParam(':post_id', $posts['id']);
-        $insertBid->bindParam(':price', $customBidAmount);
-        $insertBid->execute();
-
-        // Calcul new price
-        $newMinPrice = $posts['min_price'] + $customBidAmount;
-
-        // Maj prix annonce av new montant
-        $updatePostPrice = $bdd->prepare("UPDATE post SET min_price = :min_price WHERE id = :post_id");
-        $updatePostPrice->bindParam(':min_price', $newMinPrice);
-        $updatePostPrice->bindParam(':post_id', $posts['id']);
-        $updatePostPrice->execute();
-
-        // Récup données post MAJ
-        $reponse = $bdd->query('SELECT id, model, brand, power, years, descriptions, min_price, date_end, winner_id FROM post');
-        $posts = $reponse->fetch();
-
-        // redirection côté serveur
-        header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $userId);
-        // Si redirection côté serveur échoue, JavaScript pour côté client
-        echo "<script>window.location.href = '" . $_SERVER['PHP_SELF'] . "?id=" . $userId . "';</script>";
-
-        exit();
     } else {
-        echo "Vous ne pouvez pas enchérir sur votre propre annonce.";
+        echo "Vous devez être connecté pour enchérir.";
     }
-}}
+}
 ?>
 
 <!DOCTYPE html>
