@@ -8,6 +8,9 @@
 </head>
 <body>
  <!-- include ("Menu.php"); -->
+    <?php
+    require_once __DIR__ . "/../../Navigation/Menu/Menu.php";
+    ?>
  <?php $currentDate = date('d-m-Y'); ?>
 
  <div class="CreatePostContainer">

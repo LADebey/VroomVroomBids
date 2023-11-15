@@ -45,6 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
+    <?php
+    require_once __DIR__ . "/../../Navigation/Menu/Menu.php";
+    ?>
     <div class="RegisterContainer">
         <form class="RegisterForm" action="Register.php" method="post">
             <h1>Inscription</h1>

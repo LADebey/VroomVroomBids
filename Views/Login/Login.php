@@ -36,6 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
+    <?php
+    require_once __DIR__ . "/../../Navigation/Menu/Menu.php";
+    ?>
     <div class="login">
         <header class="header">
             <span class="text">LOGIN</span>
@@ -47,7 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button class="btn" type="submit"></button>
         </form>
     </div>
-    <a href="/VroomVroomBids/Views/Register/Register.php" class="resetbtn">Inscription</a>
     <!-- <script>
     $(document).ready(function() {
         $('.input').on('focus', function() {

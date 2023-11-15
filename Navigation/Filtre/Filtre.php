@@ -48,6 +48,9 @@ $annonces = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Filtrer les annonces</title>
 </head>
 <body>
+    <?php
+    require_once __DIR__ . "/../../Navigation/Menu/Menu.php";
+    ?>
     <div class="filtre">
         <form action="filtre.php" method="post">
             <div class="filtretat">
