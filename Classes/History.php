@@ -17,15 +17,18 @@ class History
     public function renderHistory()
     {
         require_once "../../Connexion.php";
-        $history = $bdd->query("SELECT h. user_id, b. price, dates FROM bids b LEFT JOIN histories h ON b.id = h.bid_id;");
+        $history = $bdd->query("SELECT h. user_id, b. price, dates FROM bids b LEFT JOIN histories h ON b.id = h.bid_id LEFT JOIN users u ON u.id = b.user_id; ");
         $histories = $history->fetchAll(PDO::FETCH_ASSOC);
 
         echo "<div class='renderCont'>";
-        foreach ($histories as $key1 => $value1) {
-            echo "<div class='render'>";
-            foreach ($value1 as $key2 => $value2) {
-                echo "<p> $key2 : $value2 </p>";
-            }
+        foreach ($histories as $history) { ?>
+            <?php echo "<div class='render'>"; ?>
+            <p><?php echo "Utilisateur : ", $history['user_id'] ?></p>
+            <p><?php echo "Montant enchéri : ", $history['price'] ?></p>
+            <p><?php echo "Date : ", $history['dates'] ?></p>
+
+
+<?php
             echo "</div>";
         }
         echo "</div>";
