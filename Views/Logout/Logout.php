@@ -1,5 +1,4 @@
 <?php define('ROOT_PATH', './'); ?>
-<?php include("Menu.php"); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -7,8 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VroomVroomBids</title>
-    <link rel="stylesheet" type="text/css" href="Style/style.css">
-
 </head>
 <?php
 require_once "../../Connexion.php";
@@ -23,6 +20,6 @@ session_destroy();
 echo "Vous êtes  déconnecté";
 
 // Redirige page de connexion
-header("Location: Login.php");
+header("Location: /VroomVroomBids/Views/Login/Login.php");
 exit;
 ?>
