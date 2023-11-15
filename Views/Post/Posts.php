@@ -22,8 +22,10 @@ if (isset($_GET['id'])) {
     //var_dump($voitures);
     //var_dump($posts);
 
-    // formulaire soumis ?
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// formulaire soumis ?
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vérifier si l'utilisateur qui enchérit n'est pas le même que celui qui a posté l'annonce
+    if ($voitures['id'] != $_SESSION['users_id']) {
         // Calcul du nouveau montant de l'enchère
         $customBidAmount = 0;
 
@@ -65,10 +67,10 @@ if (isset($_GET['id'])) {
         echo "<script>window.location.href = '" . $_SERVER['PHP_SELF'] . "?id=" . $userId . "';</script>";
 
         exit();
+    } else {
+        echo "Vous ne pouvez pas enchérir sur votre propre annonce.";
     }
-} else {
-    echo "No 'id' parameter found in the URL.";
-}
+}}
 ?>
 
 <!DOCTYPE html>
